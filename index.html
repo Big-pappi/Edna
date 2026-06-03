@@ -12,11 +12,7 @@
   --purple:#6B21A8;--lilac:#C084FC;--cream:#FFF0F8;--teal:#06B6D4;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:var(--deep);color:#fff;overflow-x:hidden;cursor:none}
-
-/* CUSTOM CURSOR */
-#cursor{position:fixed;width:18px;height:18px;background:var(--rose);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform .1s,background .2s;mix-blend-mode:difference}
-#cursor-trail{position:fixed;width:36px;height:36px;border:2px solid var(--gold);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:left .12s ease,top .12s ease,opacity .3s}
+body{font-family:'Outfit',sans-serif;background:var(--deep);color:#fff;overflow-x:hidden}
 
 /* ════════════════════════════
    LOCK SCREEN
@@ -349,8 +345,6 @@ footer{
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-trail"></div>
 <canvas id="confCanvas"></canvas>
 
 <!-- ═══════════════════════════
@@ -367,11 +361,11 @@ footer{
   <div class="lock-sub">This was made just for <strong style="color:var(--gold)">Edna Amos Maduma</strong> ✨<br>Enter your birthday to unlock the magic</div>
 
   <div class="digit-row">
-    <input class="dbox" id="b0" type="number" min="0" max="9" inputmode="numeric" autocomplete="off" placeholder="0">
-    <input class="dbox" id="b1" type="number" min="0" max="9" inputmode="numeric" autocomplete="off" placeholder="2">
+    <input class="dbox" id="b0" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" placeholder="D">
+    <input class="dbox" id="b1" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" placeholder="D">
     <span class="dot-sep">·</span>
-    <input class="dbox" id="b2" type="number" min="0" max="9" inputmode="numeric" autocomplete="off" placeholder="0">
-    <input class="dbox" id="b3" type="number" min="0" max="9" inputmode="numeric" autocomplete="off" placeholder="7">
+    <input class="dbox" id="b2" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" placeholder="M">
+    <input class="dbox" id="b3" type="tel" inputmode="numeric" maxlength="1" autocomplete="off" placeholder="M">
   </div>
 
   <div class="err" id="errMsg"></div>
@@ -566,7 +560,7 @@ footer{
         "Edna, you have been one of the greatest gifts life has ever given me. You make ordinary days feel like celebrations, and every single memory with you is a treasure I hold so close to my heart. Thank you for your laughter, your strength, your kindness, your honesty, and for always — always — being you in all of your brilliant, beautiful glory. On this special day, I want the whole world to know: you are deeply loved, endlessly celebrated, and my best friend — not just today, but in every chapter still to come. The world is genuinely better because you are in it. Happy birthday, queen. This one's for you."
       </div>
       <div class="msg-sig">Chedy 💕</div>
-      <div class="msg-role">Software Developer · Best Friend · Your Biggest Fan</div>
+      <div class="msg-role">Your Biggest Fan · Best Friend Forever</div>
     </div>
   </section>
 
@@ -575,24 +569,12 @@ footer{
     <div class="footer-name">Happy<br>Birthday<br>Edna! 🎂</div>
     <div class="footer-sub">July 2nd · Forever Celebrated · Forever Loved</div>
     <div class="footer-emojis">🎉🌸🎊💖🌟🎁✨👑💫🥳</div>
-    <div class="footer-credit">MADE WITH 💗 BY CHEDY · SOFTWARE DEVELOPER · BEST FRIEND FOREVER</div>
+    <div class="footer-credit">MADE WITH 💗 BY CHEDY · BEST FRIEND FOREVER</div>
   </footer>
 
 </div><!-- /site -->
 
 <script>
-// ═══════════════════════════════
-//  CURSOR
-// ═══════════════════════════════
-const cur = document.getElementById('cursor');
-const trail = document.getElementById('cursor-trail');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX + 'px';
-  cur.style.top = e.clientY + 'px';
-  trail.style.left = e.clientX + 'px';
-  trail.style.top = e.clientY + 'px';
-});
-
 // ═══════════════════════════════
 //  STARFIELD ON LOCK SCREEN
 // ═══════════════════════════════
@@ -649,9 +631,8 @@ const errEl = document.getElementById('errMsg');
 // Auto-advance on input
 boxes.forEach((box, i) => {
   box.addEventListener('input', () => {
-    // Keep only last digit
     const val = box.value.replace(/\D/g,'');
-    box.value = val ? val[val.length-1] : '';
+    box.value = val ? val[0] : '';
     if (box.value !== '' && i < 3) {
       boxes[i+1].focus();
     }
