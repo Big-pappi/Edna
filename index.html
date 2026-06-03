@@ -38,6 +38,7 @@
   #lock-screen.unlock {
     opacity: 0; transform: scale(1.05) translateY(-20px);
     pointer-events: none;
+    visibility: hidden;
   }
 
   .stars-bg {
@@ -511,7 +512,7 @@
     <input class="code-input" id="m2" maxlength="1" type="tel" placeholder="M" autocomplete="off">
   </div>
 
-  <div class="lock-hint">Format: Day · Month &nbsp;</div>
+  <div class="lock-hint">Enter your birth day and month 🎂</div>
   <div class="error-msg" id="error-msg"></div>
 
   <button class="unlock-btn" onclick="tryUnlock()">✨ Open My Surprise</button>
@@ -729,7 +730,7 @@
 
   // ── CODE UNLOCK ──
   const inputs = ['d1','d2','m1','m2'].map(id => document.getElementById(id));
-  const SECRET = ['0','2','0','7']; // July 2nd
+  const SECRET = ['0','2','0','7'];
 
   inputs.forEach((inp, i) => {
     inp.addEventListener('input', () => {
@@ -748,7 +749,9 @@
       inputs.forEach(i => i.classList.add('correct'));
       errEl.textContent = '';
       setTimeout(() => {
-        document.getElementById('lock-screen').classList.add('unlock');
+        const ls = document.getElementById('lock-screen');
+        ls.classList.add('unlock');
+        setTimeout(() => ls.remove(), 900);
         const main = document.getElementById('main-site');
         main.classList.add('show');
         setTimeout(() => {
